@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shop/core/routes/app_routes.dart';
-import 'package:shop/counter/widget/counter_widget.dart';
 import 'package:shop/product/widget/product_detail/product_detail_widget.dart';
 
 import 'package:shop/product/widget/products_overview/products_overview_widget.dart';
