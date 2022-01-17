@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/core/routes/app_routes.dart';
+import 'package:shop/product/models/product_list/product_list.dart';
 import 'package:shop/product/widget/product_detail/product_detail_widget.dart';
 
 import 'package:shop/product/widget/products_overview/products_overview_widget.dart';
@@ -13,19 +15,22 @@ class MyApp extends StatelessWidget {
     final ThemeData theme = ThemeData(
       fontFamily: 'Lato',
     );
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(
-          primary: Colors.purple,
-          secondary: Colors.deepOrange,
+    return ChangeNotifierProvider(
+      create: (_) => ProductList(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: theme.copyWith(
+          colorScheme: theme.colorScheme.copyWith(
+            primary: Colors.purple,
+            secondary: Colors.deepOrange,
+          ),
         ),
+        home: const ProductOverviewWidget(),
+        routes: {
+          AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailWidget(),
+        },
+        debugShowCheckedModeBanner: false,
       ),
-      home: ProductOverviewWidget(),
-      routes: {
-        AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailWidget(),
-      },
-      debugShowCheckedModeBanner: false,
     );
   }
 }
