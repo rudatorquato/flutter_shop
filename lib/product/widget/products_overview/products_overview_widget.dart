@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shop/product/models/product_list/product_list.dart';
 import 'package:shop/product/widget/product_grid/product_grid.dart';
 
 enum FilterOptions {
@@ -8,12 +6,18 @@ enum FilterOptions {
   all,
 }
 
-class ProductOverviewWidget extends StatelessWidget {
+class ProductOverviewWidget extends StatefulWidget {
   const ProductOverviewWidget({Key? key}) : super(key: key);
 
   @override
+  State<ProductOverviewWidget> createState() => _ProductOverviewWidgetState();
+}
+
+class _ProductOverviewWidgetState extends State<ProductOverviewWidget> {
+  bool _showFavoriteOnly = false;
+
+  @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ProductList>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -35,16 +39,18 @@ class ProductOverviewWidget extends StatelessWidget {
               ),
             ],
             onSelected: (FilterOptions selectedValue) {
-              if (selectedValue == FilterOptions.favorite) {
-                provider.showFavoriteOnly();
-              } else {
-                provider.showAll();
-              }
+              setState(() {
+                if (selectedValue == FilterOptions.favorite) {
+                  _showFavoriteOnly = true;
+                } else {
+                  _showFavoriteOnly = false;
+                }
+              });
             },
           )
         ],
       ),
-      body: const ProductGridWidget(),
+      body: ProductGridWidget(_showFavoriteOnly),
     );
   }
 }
