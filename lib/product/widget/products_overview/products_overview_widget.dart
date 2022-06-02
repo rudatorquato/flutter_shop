@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/badge/widget/badge_widget.dart';
 import 'package:shop/cart/models/cart.dart';
+import 'package:shop/core/routes/app_routes.dart';
 import 'package:shop/product/widget/product_grid/product_grid.dart';
 
 enum FilterOptions {
@@ -53,7 +54,9 @@ class _ProductOverviewWidgetState extends State<ProductOverviewWidget> {
           ),
           Consumer<Cart>(
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.CART);
+              },
               icon: const Icon(Icons.shopping_cart),
             ),
             builder: (ctx, cart, child) => BadgeWidget(
