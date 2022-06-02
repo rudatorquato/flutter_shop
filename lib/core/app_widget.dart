@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/cart/models/cart.dart';
 import 'package:shop/core/routes/app_routes.dart';
 import 'package:shop/product/models/product_list/product_list.dart';
 import 'package:shop/product/widget/product_detail/product_detail_widget.dart';
@@ -15,8 +16,15 @@ class MyApp extends StatelessWidget {
     final ThemeData theme = ThemeData(
       fontFamily: 'Lato',
     );
-    return ChangeNotifierProvider(
-      create: (_) => ProductList(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ProductList(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Cart(),
+        )
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: theme.copyWith(
