@@ -31,7 +31,7 @@ class Cart with ChangeNotifier {
           id: existingItem.id,
           productId: existingItem.productId,
           name: existingItem.name,
-          quantify: existingItem.quantify,
+          quantify: existingItem.quantify + 1,
           price: existingItem.price,
         ),
       );
