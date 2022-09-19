@@ -6,7 +6,9 @@ class OrdersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Meus Pedidos')),
+      appBar: AppBar(
+        title: const Center(child: Text('Meus Pedidos')),
+      ),
     );
   }
 }
