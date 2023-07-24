@@ -4,8 +4,8 @@ import 'package:shop/cart/models/cart/cart.dart';
 import 'package:shop/core/routes/app_routes.dart';
 import 'package:shop/product/models/product/product.dart';
 
-class ProductItemWidget extends StatelessWidget {
-  const ProductItemWidget({
+class ProductGridItemWidget extends StatelessWidget {
+  const ProductGridItemWidget({
     Key? key,
   }) : super(key: key);
 
@@ -53,6 +53,18 @@ class ProductItemWidget extends StatelessWidget {
           trailing: IconButton(
             onPressed: () {
               cart.addItem(product);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Produto adicionado com sucesso!'),
+                  duration: const Duration(seconds: 2),
+                  action: SnackBarAction(
+                    label: 'DESFAZER',
+                    onPressed: () {
+                      cart.removeSingleItem(product.id);
+                    },
+                  ),
+                ),
+              );
             },
             icon: const Icon(Icons.shopping_cart),
             color: Theme.of(context).colorScheme.secondary,
