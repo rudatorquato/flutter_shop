@@ -17,7 +17,7 @@ class CartItemWidget extends StatelessWidget {
       key: ValueKey(cartItem.id),
       direction: DismissDirection.endToStart,
       background: Container(
-        color: Theme.of(context).errorColor,
+        color: Theme.of(context).colorScheme.error,
         child: const Icon(
           Icons.delete,
           color: Colors.white,
@@ -30,6 +30,29 @@ class CartItemWidget extends StatelessWidget {
           vertical: 4,
         ),
       ),
+      confirmDismiss: (_) {
+        return showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('Tem Certeza?'),
+            content: const Text('Quer remover o item do carrinho?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+                child: const Text('Não'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+                child: const Text('Sim'),
+              ),
+            ],
+          ),
+        );
+      },
       onDismissed: (_) {
         Provider.of<Cart>(
           context,
@@ -53,7 +76,7 @@ class CartItemWidget extends StatelessWidget {
                     '${cartItem.price}',
                     style: TextStyle(
                       color:
-                          Theme.of(context).primaryTextTheme.headline6?.color,
+                          Theme.of(context).primaryTextTheme.titleLarge?.color,
                     ),
                   ),
                 ),
