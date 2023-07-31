@@ -7,4 +7,6 @@ class AppRoutes {
   static const CART = '/cart';
   // ignore: constant_identifier_names
   static const ORDERS = '/orders';
+  // ignore: constant_identifier_names
+  static const PRODUCTS = '/products';
 }
