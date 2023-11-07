@@ -10,12 +10,26 @@ class ProductFormWidget extends StatefulWidget {
 class _ProductFormWidgetState extends State<ProductFormWidget> {
   final _priceFocus = FocusNode();
   final _descriptionFocus = FocusNode();
+  final _imageUrlFocus = FocusNode();
+  final _imageUrlController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _imageUrlFocus.addListener(() {});
+  }
 
   @override
   void dispose() {
     super.dispose();
     _priceFocus.dispose();
     _descriptionFocus.dispose();
+    _imageUrlFocus.dispose();
+    _imageUrlFocus.removeListener(updateImage);
+  }
+
+  void updateImage() {
+    setState(() {});
   }
 
   @override
@@ -49,6 +63,40 @@ class _ProductFormWidgetState extends State<ProductFormWidget> {
               focusNode: _descriptionFocus,
               keyboardType: TextInputType.multiline,
               maxLines: 3,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    decoration:
+                        const InputDecoration(labelText: 'Url da imagem'),
+                    controller: _imageUrlController,
+                    focusNode: _imageUrlFocus,
+                    keyboardType: TextInputType.url,
+                    textInputAction: TextInputAction.done,
+                  ),
+                ),
+                Container(
+                  height: 100,
+                  width: 100,
+                  margin: const EdgeInsets.only(top: 10, left: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: _imageUrlController.text.isEmpty
+                      ? const Text('Informe uma url')
+                      : FittedBox(
+                          child: Image.network(
+                            _imageUrlController.text,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                )
+              ],
             ),
           ],
         )),
